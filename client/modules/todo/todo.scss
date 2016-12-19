@@ -1,0 +1,19 @@
+@import "../../../dev/style/base.scss";
+
+.todo-container {
+  padding: 50px;
+  background-color: $white-color;
+  margin-top: 50px;
+
+  h1 {
+    text-align: center;
+    color: $blue-color;
+    font-size: 36px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .footer {
+    height: 50px;
+  }
+}
