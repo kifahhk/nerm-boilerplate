@@ -1,3 +1,2 @@
-/**
- * Created by Kify on 19.12.2016.
- */
+export const isDev = process.env.NODE_ENV === 'development';
+export const isProd = process.env.NODE_ENV === 'production';

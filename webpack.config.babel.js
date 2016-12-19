@@ -25,6 +25,11 @@ module.exports = {
         loader: 'style-loader!css-loader?localIdentName=' + cssModulesIdentName + '&modules&importLoaders=1&sourceMap!postcss-loader!sass',
       },
       {
+        include: /node_modules/,
+        loader: 'style-loader!css-loader?localIdentName=' + cssModulesIdentName + '&modules&importLoaders=1&sourceMap!postcss-loader!sass',
+        test: /\.css$/,
+      },
+      {
         test: /\.jpe?g$|\.gif$|\.png$|\.svg$/i,
         loader: 'url-loader?limit=10000',
       },

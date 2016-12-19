@@ -12,7 +12,8 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 const app = new Express();
 
 // Run Webpack dev server in development mode
-if (process.env.NODE_ENV === 'development') {
+import { isDev, isProd } from '../config/server';
+if (isDev) {
   const compiler = webpack(webpackConfig);
   app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: webpackConfig.output.publicPath }));
   app.use(webpackHotMiddleware(compiler));
@@ -65,21 +66,20 @@ const renderFullPage = (html, initialState) => {
         ${head.link.toString()}
         ${head.script.toString()}
 
-        ${process.env.NODE_ENV === 'production' ? `<link rel='stylesheet' href='${assetsManifest['/app.css']}' />` : ''}
+        ${isProd ? `<link rel='stylesheet' href='${assetsManifest['/app.css']}' />` : ''}
         <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'/>
-        <link rel="shortcut icon" href="http://res.cloudinary.com/hashnode/image/upload/v1455629445/static_imgs/mern/mern-favicon-circle-fill.png" type="image/png" />
       </head>
       <body>
         <div id="root">${html}</div>
         <script>
           window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
-          ${process.env.NODE_ENV === 'production' ?
+          ${isProd ?
     `//<![CDATA[
           window.webpackManifest = ${JSON.stringify(chunkManifest)};
           //]]>` : ''}
         </script>
-        <script src='${process.env.NODE_ENV === 'production' ? assetsManifest['/vendor.js'] : '/vendor.js'}'></script>
-        <script src='${process.env.NODE_ENV === 'production' ? assetsManifest['/app.js'] : '/app.js'}'></script>
+        <script src='${isProd ? assetsManifest['/vendor.js'] : '/vendor.js'}'></script>
+        <script src='${isProd ? assetsManifest['/app.js'] : '/app.js'}'></script>
       </body>
     </html>
   `;
@@ -87,7 +87,7 @@ const renderFullPage = (html, initialState) => {
 
 const renderError = err => {
   const softTab = '&#32;&#32;&#32;&#32;';
-  const errTrace = process.env.NODE_ENV !== 'production' ?
+  const errTrace = !isProd ?
     `:<br><br><pre style="color:red">${softTab}${err.stack.replace(/\n/g, `<br>${softTab}`)}</pre>` : '';
   return renderFullPage(`Server Error${errTrace}`, {});
 };
@@ -126,10 +126,10 @@ app.use((req, res, next) => {
 // serve static assets normally
 app.use(Express.static(`${__dirname}/public`));
 
-// handle every other route with index.html, which will contain
+// handle every other route with 404.html, which will contain
 // a script tag to your application's JavaScript file(s).
 app.get('*', (request, response) => {
-  response.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+  response.sendFile(path.resolve(__dirname, 'public', '404.html'));
 });
 
 // start app

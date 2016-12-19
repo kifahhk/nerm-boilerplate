@@ -38,7 +38,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'style!css?sourceMap!postcss!sass',
         test: /\.s?css$/,
-      },      {
+      },{
         include: /node_modules/,
         loader: 'style!css',
         test: /\.css$/,

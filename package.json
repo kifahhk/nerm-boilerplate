@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Boilerplate for building apps with Node / Express / React Redux and MongoDB",
   "scripts": {
-    "test": "npm run test:client && npm run test:server",
-    "test:client": "cross-env NODE_ENV=test PORT=8080 MONGO_URL=mongodb://localhost:27017/nerm-db node_modules/.bin/mocha --recursive --compilers js:babel-core/register --require ./client/util/test-helper.js client/**/*.spec.js",
-    "test:server": "cross-env NODE_ENV=test PORT=8080 MONGO_URL=mongodb://localhost:27017/nerm-db node_modules/.bin/mocha --recursive --compilers js:babel-core/register --require ./server/util/test-helper.js server/**/*.spec.js",
+    "test": "cross-env NODE_ENV=test PORT=8080 MONGO_URL=mongodb://localhost:27017/nerm-db && npm run test:client && npm run test:server",
+    "test:client": "node_modules/.bin/mocha --recursive --compilers js:babel-core/register --require ./client/util/test-helper.js --require ignore-styles client/**/*.spec.js",
+    "test:server": "node_modules/.bin/mocha --recursive --compilers js:babel-core/register --require ./server/util/test-helper.js --require ignore-styles server/**/*.spec.js",
     "watch:test": "npm run test -- --watch",
     "start": "cross-env BABEL_DISABLE_CACHE=1 NODE_ENV=development nodemon index.js",
     "start:prod": "cross-env NODE_ENV=production node index.js",
@@ -18,9 +18,7 @@
     "lint:server": "eslint server",
     "lint": "eslint client server"
   },
-  "pre-commit": [
-
-  ],
+  "pre-commit": [],
   "repository": {
     "type": "git",
     "url": ""
@@ -49,7 +47,8 @@
     "react-router": "2.4.1",
     "redux": "3.5.2",
     "redux-thunk": "2.1.0",
-    "sanitize-html": "1.11.4"
+    "sanitize-html": "1.11.4",
+    "todomvc-app-css": "^2.0.6"
   },
   "devDependencies": {
     "autoprefixer": "6.3.3",
@@ -80,6 +79,7 @@
     "eventsource-polyfill": "0.9.6",
     "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "0.8.5",
+    "ignore-styles": "^5.0.1",
     "jquery": "3.1.1",
     "jsdom": "9.2.1",
     "json-loader": "0.5.4",
