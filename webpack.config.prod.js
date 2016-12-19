@@ -2,7 +2,6 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
-const cssnext = require('postcss-cssnext');
 const cssnano = require('cssnano');
 const postcssPlugins = require('./config/postcss');
 

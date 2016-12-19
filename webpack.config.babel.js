@@ -1,4 +1,3 @@
-const cssnext = require('postcss-cssnext');
 const postcssPlugins = require('./config/postcss');
 
 let cssModulesIdentName = '[name]__[local]__[hash:base64:5]';
