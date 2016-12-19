@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Boilerplate for building apps with Node / Express / React Redux and MongoDB",
   "scripts": {
-    "test": "test:client && test:server",
+    "test": "npm run test:client && npm run test:server",
     "test:client": "cross-env NODE_ENV=test PORT=8080 MONGO_URL=mongodb://localhost:27017/nerm-db node_modules/.bin/mocha --recursive --compilers js:babel-core/register --require ./client/util/test-helper.js client/**/*.spec.js",
     "test:server": "cross-env NODE_ENV=test PORT=8080 MONGO_URL=mongodb://localhost:27017/nerm-db node_modules/.bin/mocha --recursive --compilers js:babel-core/register --require ./server/util/test-helper.js server/**/*.spec.js",
     "watch:test": "npm run test -- --watch",
