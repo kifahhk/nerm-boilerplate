@@ -19,7 +19,9 @@
     "lint:server": "eslint server",
     "lint": "eslint client server"
   },
-  "pre-commit": [],
+  "pre-commit": [
+    "test"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/kifahhk/nerm-boilerplate"

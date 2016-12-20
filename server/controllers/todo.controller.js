@@ -64,14 +64,14 @@ export function getTodo(req, res) {
  * @returns void
  */
 export function updateTodo(req, res) {
-  Todo.findOneAndUpdate({ _id: req.params.id }, req.body.todo, {upsert:false}).exec((err, todo) => {
+  Todo.findOneAndUpdate({ _id: req.params.id }, req.body.todo, { upsert: false }).exec((err, todo) => {
     if (err) {
       res.status(500).send(err);
     }
-    if(!todo) {
-      res.status(422).send({ 'error': 'this todo does not exist'});
+    if (!todo) {
+      res.status(422).send({ 'error': 'this todo does not exist' });
     }
-    res.json({ todo: {...req.body.todo, ...todo} }); //return new values (updated Todo)
+    res.json({ todo: { ...req.body.todo, ...todo } }); //return new values (updated Todo)
   });
 }
 
@@ -86,8 +86,8 @@ export function deleteTodo(req, res) {
     if (err) {
       res.status(500).send(err);
     }
-    if(!todo) {
-      res.status(422).send({ 'error': 'this todo does not exist'});
+    if (!todo) {
+      res.status(422).send({ 'error': 'this todo does not exist' });
     }
     todo.remove(() => {
       res.status(200).end();

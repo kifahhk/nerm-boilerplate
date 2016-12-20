@@ -17,25 +17,9 @@ export default class MainSection extends Component {
 
   state = { filter: SHOW_ALL };
 
-  handleClearCompleted = () => {
-    this.props.actions.clearCompleted()
-  };
-
   handleShow = filter => {
     this.setState({ filter })
   };
-
-  renderToggleAll(completedCount) {
-    const { todos, actions } = this.props;
-    if (todos.length > 0) {
-      return (
-        <input className="toggle-all"
-               type="checkbox"
-               checked={completedCount === todos.length}
-               onChange={actions.completeAll} />
-      )
-    }
-  }
 
   renderFooter(completedCount) {
     const { todos } = this.props;
@@ -47,7 +31,6 @@ export default class MainSection extends Component {
         <Footer completedCount={completedCount}
                 activeCount={activeCount}
                 filter={filter}
-                onClearCompleted={this.handleClearCompleted.bind(this)}
                 onShow={this.handleShow.bind(this)} />
       )
     }
@@ -65,7 +48,6 @@ export default class MainSection extends Component {
 
     return (
       <section className="main">
-        {this.renderToggleAll(completedCount)}
         <ul className="todo-list">
           {filteredTodos.map(todo =>
             <TodoItem key={todo.id} todo={todo} {...actions} />
