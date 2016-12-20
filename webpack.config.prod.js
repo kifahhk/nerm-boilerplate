@@ -41,7 +41,7 @@ module.exports = {
         test: /\.s?css$/,
       },      {
         include: /node_modules/,
-        loader: 'style!css',
+        loader: ExtractTextPlugin.extract('style', 'css?sourceMap'),
         test: /\.css$/,
       },{
         test: /\.js?$/,
