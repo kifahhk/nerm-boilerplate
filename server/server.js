@@ -30,6 +30,7 @@ import Helmet from 'react-helmet';
 // Import required modules
 import routes from '../client/routes';
 import dbConfig from '../config/db';
+import todos from './routes/todo.route';
 
 // Set native promises as mongoose promise
 mongoose.Promise = global.Promise;
@@ -47,6 +48,7 @@ app.use(compression());
 app.use(bodyParser.json({ limit: '20mb' }));
 app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
 app.use(Express.static(path.resolve(__dirname, '../dist')));
+app.use('/api', todos);
 
 // Render Initial HTML
 const renderFullPage = (html, initialState) => {
@@ -67,6 +69,7 @@ const renderFullPage = (html, initialState) => {
         ${head.script.toString()}
 
         ${isProd ? `<link rel='stylesheet' href='${assetsManifest['/app.css']}' />` : ''}
+        <link rel="shortcut icon" href="http://kifahseif.de/img/favicon.png">
         <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'/>
       </head>
       <body>

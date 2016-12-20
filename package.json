@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Boilerplate for building apps with Node / Express / React Redux and MongoDB",
   "scripts": {
-    "test": "cross-env NODE_ENV=test PORT=8080 MONGO_URL=mongodb://localhost:27017/nerm-db && npm run test:client && npm run test:server",
+    "test": "npm run set-env && npm run test:client && npm run test:server",
+    "set-env": "cross-env NODE_ENV=test PORT=8080 MONGO_URL=mongodb://localhost:27017/nerm-db",
     "test:client": "node_modules/.bin/mocha --recursive --compilers js:babel-core/register --require ./client/util/test-helper.js --require ignore-styles client/**/*.spec.js",
     "test:server": "node_modules/.bin/mocha --recursive --compilers js:babel-core/register --require ./server/util/test-helper.js --require ignore-styles server/**/*.spec.js",
     "watch:test": "npm run test -- --watch",
@@ -21,14 +22,14 @@
   "pre-commit": [],
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/kifahhk/nerm-boilerplate"
   },
   "bugs": {
-    "url": ""
+    "url": "https://github.com/kifahhk/nerm-boilerplate/issues"
   },
   "homepage": "",
   "author": "Kifah Seif <kifahhk@gmail.com>",
-  "license": "MIT",
+  "license": "",
   "dependencies": {
     "axios": "0.15.3",
     "babel-core": "6.9.1",
@@ -85,7 +86,6 @@
     "json-loader": "0.5.4",
     "mocha": "3.2.0",
     "mock-css-modules": "1.0.0",
-    "mockgoose": "6.0.4",
     "nock": "8.0.0",
     "node-sass": "3.8.0",
     "nodemon": "1.9.2",
