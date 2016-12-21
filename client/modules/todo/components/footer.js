@@ -4,7 +4,7 @@ import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../../../stateManager/tod
 const FILTER_TITLES = {
   [SHOW_ALL]: 'All',
   [SHOW_ACTIVE]: 'Active',
-  [SHOW_COMPLETED]: 'Completed'
+  [SHOW_COMPLETED]: 'Completed',
 };
 
 export default class Footer extends Component {
@@ -12,7 +12,7 @@ export default class Footer extends Component {
     completedCount: PropTypes.number.isRequired,
     activeCount: PropTypes.number.isRequired,
     filter: PropTypes.string.isRequired,
-    onShow: PropTypes.func.isRequired
+    onShow: PropTypes.func.isRequired,
   };
 
   renderTodoCount() {
