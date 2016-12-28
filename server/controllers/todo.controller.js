@@ -71,7 +71,7 @@ export function updateTodo(req, res) {
     if (!todo) {
       res.status(422).send({ 'error': 'this todo does not exist' });
     }
-    res.json({ todo: { ...req.body.todo, ...todo } }); //return new values (updated Todo)
+    res.json({ todo: { ...req.body.todo, ...todo } }); // return new values (updated Todo)
   });
 }
 
@@ -87,7 +87,7 @@ export function deleteTodo(req, res) {
       res.status(500).send(err);
     }
     if (!todo) {
-      res.status(422).send({ 'error': 'this todo does not exist' });
+      res.status(422).send({ error: 'this todo does not exist' });
     }
     todo.remove(() => {
       res.status(200).end();

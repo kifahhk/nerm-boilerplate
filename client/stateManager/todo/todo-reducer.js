@@ -4,6 +4,17 @@ const initialState = [];
 
 export default function todos(state = initialState, action) {
   switch (action.type) {
+    case types.GET:
+      return [
+        ...action.todos.map(todo => {
+          return {
+            ...todo,
+            id: todo._id,
+          };
+        }),
+        ...state,
+      ];
+
     case types.ADD:
       return [{
         id: action.todo._id,
@@ -19,7 +30,6 @@ export default function todos(state = initialState, action) {
       );
 
     case types.EDIT:
-      console.log(action);
       return state.map(todo => {
         return todo.id === action.id ?
           { ...todo, text: action.text } :

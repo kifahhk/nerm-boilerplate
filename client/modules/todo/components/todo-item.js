@@ -1,29 +1,29 @@
-import React, { Component, PropTypes } from 'react'
-import TodoTextInput from './todo-input'
+import React, { Component, PropTypes } from 'react';
+import TodoTextInput from './todo-input';
 
 export default class TodoItem extends Component {
   static propTypes = {
     todo: PropTypes.object.isRequired,
     editTodo: PropTypes.func.isRequired,
     deleteTodo: PropTypes.func.isRequired,
-    completeTodo: PropTypes.func.isRequired
+    completeTodo: PropTypes.func.isRequired,
   };
 
   state = {
-    editing: false
+    editing: false,
   };
 
   handleDoubleClick = () => {
-    this.setState({ editing: true })
+    this.setState({ editing: true });
   };
 
   handleSave = (id, text) => {
     if (text.length === 0) {
-      this.props.deleteTodo(id)
+      this.props.deleteTodo(id);
     } else {
-      this.props.editTodo(id, text)
+      this.props.editTodo(id, text);
     }
-    this.setState({ editing: false })
+    this.setState({ editing: false });
   };
 
   render() {
@@ -36,7 +36,7 @@ export default class TodoItem extends Component {
         <TodoTextInput text={todo.text}
                        editing={this.state.editing}
                        onSave={(text) => this.handleSave(todo.id, text)} />
-      )
+      );
     } else {
       element = (
         <div className="view">
@@ -50,13 +50,13 @@ export default class TodoItem extends Component {
           <button className="destroy"
                   onClick={() => deleteTodo(todo.id)} />
         </div>
-      )
+      );
     }
 
     return (
       <li className={className}>
         {element}
       </li>
-    )
+    );
   }
 }
