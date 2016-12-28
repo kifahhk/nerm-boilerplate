@@ -1,4 +1,5 @@
 const prefix = `TODO_`;
+export const GET = `${prefix}GET`;
 export const ADD = `${prefix}ADD`;
 export const DELETE = `${prefix}DELETE`;
 export const EDIT = `${prefix}EDIT`;
