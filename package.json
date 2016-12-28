@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "Boilerplate for building apps with Node / Express / React Redux and MongoDB",
   "scripts": {
-    "test": "npm run set-test-env && npm run test:client && npm run test:server",
-    "set-test-env": "cross-env NODE_ENV=test PORT=8080 MONGO_URL=mongodb://localhost:27017/nerm-db",
-    "test:client": "node_modules/.bin/mocha --recursive --compilers js:babel-core/register --require ./client/util/test-helper.js --require ignore-styles client/**/*.spec.js",
-    "test:server": "node_modules/.bin/mocha --recursive --compilers js:babel-core/register --require ./server/util/test-helper.js --require ignore-styles server/**/*.spec.js",
+    "test": "npm run test:client && npm run test:server",
+    "test:client": "cross-env NODE_ENV=test node_modules/.bin/mocha --recursive --compilers js:babel-core/register --require ./client/util/test-helper.js --require ignore-styles client/**/tests/*.spec.js",
+    "test:server": "cross-env NODE_ENV=test node_modules/.bin/mocha --recursive --compilers js:babel-core/register --require ./server/util/test-helper.js --require ignore-styles server/**/tests/*.spec.js",
     "watch:test": "npm run test -- --watch",
     "start": "cross-env BABEL_DISABLE_CACHE=1 NODE_ENV=development nodemon index.js",
     "start:prod": "cross-env NODE_ENV=production node index.js",
