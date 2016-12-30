@@ -1,15 +1,16 @@
-import { renderComponent, expect } from '../../../util/test-helper';
+import React from 'react';
+import { shallow, expect } from '../../../util/test-helper';
 import App from '../app';
 
 describe('App', () => {
   let component;
 
   beforeEach(() => {
-    component = renderComponent(App);
+    component = shallow(<App />);
   });
 
   it('should has container', () => {
-    expect(component.find('.container')).to.exist;
+    expect(component.find('.container').length).to.equal(1);
   });
 
 });

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import dbConfig from '../../config/db';
 
-export const connect = ((done) => {
+const connect = ((done) => {
   mongoose.createConnection(dbConfig.mongoURL);
   mongoose.connection
     .once('open', () => done())
@@ -10,9 +10,17 @@ export const connect = ((done) => {
     });
 });
 
-export const drop = ((done) => {
+const drop = ((done) => {
   mongoose.connection.db.dropDatabase()
     .then(() => {
       done();
-    })
+    });
+});
+
+before('should connect to the database successfully', done => {
+  connect(done);
+});
+
+after('', done => {
+  drop(done);
 });

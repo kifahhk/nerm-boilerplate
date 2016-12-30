@@ -2,7 +2,6 @@ import { expect } from 'chai';
 import request from 'supertest';
 import app from '../../server';
 import Todo from '../todo';
-import { connect, drop } from '../../util/test-helper';
 
 const todos = [
   new Todo({
@@ -14,14 +13,6 @@ const todos = [
     completed: true,
   }),
 ];
-
-before('should connect to the database successfully', done => {
-  connect(done);
-});
-
-after(done => {
-  drop(done);
-});
 
 describe('Todo', () => {
   let addedTodo = null;

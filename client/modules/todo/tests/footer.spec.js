@@ -1,20 +1,23 @@
 import React from 'react';
 import sinon from 'sinon';
 import { shallow, expect, mount } from '../../../util/test-helper';
-import Header from '../components/header';
+import Footer from '../components/footer';
 
-describe('Header', () => {
+describe('Footer', () => {
   let component;
   const spy = sinon.spy();
   const props = {
-    addTodo: spy,
+    completedCount: 0,
+    activeCount: 0,
+    filter: '',
+    onShow: spy,
   };
 
   beforeEach(() => {
-    component = shallow(<Header {...props} />);
+    component = shallow(<Footer {...props} />);
   });
 
   it('should render correctly', () =>
-    expect(component.hasClass('header')).be.true
+    expect(component.hasClass('footer')).be.true
   );
 });
