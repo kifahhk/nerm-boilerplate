@@ -30,7 +30,11 @@ export const deleteTodo = id => {
   return (dispatch) => {
     axios.delete(`${apiURL}/todos/${id}`)
       .then(response => {
-        dispatch({ type: types.DELETE, id });
+        if (response.status === 200) {
+          dispatch({ type: types.DELETE, id });
+        } else {
+          console.error('server error');
+        }
       })
       .catch((err) => {
         console.error(err);

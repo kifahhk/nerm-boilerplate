@@ -1,20 +1,23 @@
 import React from 'react';
 import sinon from 'sinon';
 import { shallow, expect } from '../../../util/test-helper';
-import Header from '../components/header';
+import TodoItem from '../components/todo-item';
 
-describe('Header', () => {
+describe('TodoItem', () => {
   let component;
   const spy = sinon.spy();
   const props = {
-    addTodo: spy,
+    todo: {},
+    editTodo: spy,
+    deleteTodo: spy,
+    completeTodo: spy,
   };
 
   beforeEach(() => {
-    component = shallow(<Header {...props} />);
+    component = shallow(<TodoItem {...props} />);
   });
 
   it('should render correctly', () =>
-    expect(component.hasClass('header')).be.true
+    expect(component.find('li')).to.exist
   );
 });

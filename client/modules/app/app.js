@@ -12,7 +12,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    this.setState({ isMounted: true });
+    this.setState({ isMounted: true }); // eslint-disable-line
   }
 
   render() {
