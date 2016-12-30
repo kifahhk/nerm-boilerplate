@@ -70,5 +70,4 @@ describe('Todo', () => {
       .send({ todo: { text: 'new test text' } })
       .expect(200, done);
   });
-
 });

@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import * as TodoController from '../controllers/todo.controller';
-import Todo from '../models/todo';
 const router = new Router();
 
 // Get all Todos

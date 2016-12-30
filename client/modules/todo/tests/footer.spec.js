@@ -1,6 +1,6 @@
 import React from 'react';
 import sinon from 'sinon';
-import { shallow, expect, mount } from '../../../util/test-helper';
+import { shallow, expect } from '../../../util/test-helper';
 import Footer from '../components/footer';
 
 describe('Footer', () => {

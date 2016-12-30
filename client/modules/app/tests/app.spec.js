@@ -12,5 +12,4 @@ describe('App', () => {
   it('should has container', () => {
     expect(component.find('.container').length).to.equal(1);
   });
-
 });
