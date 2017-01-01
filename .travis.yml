@@ -7,5 +7,6 @@ services:
   - mongodb
 before_script:
   - sleep 15
-after_success:
-  - 'npm test'
+branches:
+  only:
+    - master
