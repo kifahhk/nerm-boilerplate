@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-export default class TodoTextInput extends Component {
+export default class TodoInput extends Component {
   static propTypes = {
     onSave: PropTypes.func.isRequired,
     text: PropTypes.string,
@@ -39,13 +39,13 @@ export default class TodoTextInput extends Component {
 
     return (
       <input className={className}
-             type="text"
-             placeholder={this.props.placeholder}
-             autoFocus="true"
-             value={this.state.text}
-             onBlur={this.handleBlur}
-             onChange={this.handleChange}
-             onKeyDown={this.handleSubmit} />
+        type="text"
+        placeholder={this.props.placeholder}
+        autoFocus="true"
+        value={this.state.text}
+        onBlur={this.handleBlur}
+        onChange={this.handleChange}
+        onKeyDown={this.handleSubmit} />
     );
   }
 }

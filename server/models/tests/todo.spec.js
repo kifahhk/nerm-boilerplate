@@ -2,17 +2,7 @@ import { expect } from 'chai';
 import request from 'supertest';
 import app from '../../server';
 import Todo from '../todo';
-
-const todos = [
-  new Todo({
-    text: 'test Todo',
-    completed: false,
-  }),
-  new Todo({
-    text: 'old Todo',
-    completed: true,
-  }),
-];
+import todos from '../../mock/dummy-data';
 
 describe('Todo', () => {
   let addedTodo = null;
