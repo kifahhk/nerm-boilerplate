@@ -6,7 +6,7 @@ export const getTodos = () => {
   return (dispatch) => {
     axios.get(`${apiURL}/todos`)
       .then(response => {
-        dispatch({ type: types.GET, todos: response.data.todos });
+        dispatch({ type: types.FETCH, todos: response.data.todos });
       })
       .catch((err) => {
         console.error(err);

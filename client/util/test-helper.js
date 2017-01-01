@@ -1,11 +1,14 @@
 import jsdom from 'jsdom';
 import TestUtils from 'react-addons-test-utils';
-import { expect } from 'chai';
+import chai, { expect, assert } from 'chai';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducers from '../stateManager/reducers';
 import { mount, shallow } from 'enzyme';
+import sinonChai from 'sinon-chai';
+
+chai.use(sinonChai);
 
 const exposedProperties = ['window', 'navigator', 'document'];
 
@@ -26,4 +29,4 @@ const renderComponent = (ComponentClass, props, state) => {
   );
 };
 
-export { renderComponent, expect, shallow, mount };
+export { renderComponent, expect, shallow, mount, assert };

@@ -4,7 +4,7 @@ const initialState = [];
 
 export default function todos(state = initialState, action) {
   switch (action.type) {
-    case types.GET:
+    case types.FETCH:
       return [
         ...action.todos.map(todo => {
           return {
