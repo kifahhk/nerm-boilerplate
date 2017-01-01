@@ -7,8 +7,6 @@ services:
   - mongodb
 before_script:
   - sleep 15
-after_success:
-  - 'npm run clean && npm run build:client && npm run build:server'
 branches:
   only:
     - master
