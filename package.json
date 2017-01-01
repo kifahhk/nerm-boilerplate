@@ -5,8 +5,9 @@
   "scripts": {
     "test": "npm run test:client && npm run test:server",
     "test:client": "cross-env NODE_ENV=test node_modules/.bin/mocha --recursive --compilers js:babel-core/register --require ignore-styles client/**/tests/*.spec.js",
+    "watch:client": "npm run test:client  -- -w",
     "test:server": "cross-env NODE_ENV=test node_modules/.bin/mocha --recursive --compilers js:babel-core/register ./server/util/test-helper.js --require ignore-styles server/**/tests/*.spec.js",
-    "watch:test": "npm run test -- --watch",
+    "watch:server": "npm run test:server  -- -w",
     "start": "cross-env BABEL_DISABLE_CACHE=1 NODE_ENV=development nodemon index.js",
     "start:prod": "cross-env NODE_ENV=production node index.js",
     "build": "npm run clean && npm run build:client && npm run build:server && npm run start:prod",
