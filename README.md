@@ -5,3 +5,5 @@ inspired by [MERN](https://mern.io) and mainly created using [MERN-cli](https://
 
 Todo example on the client side modified from [redux example](https://github.com/reactjs/redux/tree/master/examples/todomvc) 
 
+#### Demo
+https://nerm-boilerplate.herokuapp.com/
