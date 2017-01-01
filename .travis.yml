@@ -8,12 +8,7 @@ services:
 before_script:
   - sleep 15
 after_success:
-  if ([ "$TRAVIS_BRANCH" == "master" ] || [ ! -z "$TRAVIS_TAG" ]) &&
-      [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
-    - 'npm run clean && npm run build:client && npm run build:server'
-  else
-    echo "No Deploy on PR!"
-  fi
+  - 'npm run clean && npm run build:client && npm run build:server'
 branches:
   only:
     - master
