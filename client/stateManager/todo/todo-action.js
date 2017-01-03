@@ -1,10 +1,10 @@
-import * as types from './todo-constant';
+import * as types from './todo-type';
 import axios from 'axios';
 import { apiURL } from '../../../config/server';
 
 export const getTodos = () => {
   return (dispatch) => {
-    axios.get(`${apiURL}/todos`)
+    return axios.get(`${apiURL}/todos`)
       .then(response => {
         dispatch({ type: types.FETCH, todos: response.data.todos });
       })

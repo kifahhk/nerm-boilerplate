@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import TodoItem from './todo-item';
 import Footer from './footer';
-import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../../../stateManager/todo/todo-constant';
+import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../../../stateManager/todo/todo-type';
 
 const TODO_FILTERS = {
   [SHOW_ALL]: () => true,
