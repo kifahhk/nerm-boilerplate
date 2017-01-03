@@ -1,4 +1,4 @@
-import * as types from './todo-constant';
+import * as types from './todo-type';
 
 const initialState = [];
 

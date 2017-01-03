@@ -2,7 +2,7 @@ import React from 'react';
 import sinon from 'sinon';
 import { shallow, expect } from '../../../util/test-helper';
 import Footer from '../components/footer';
-import { SHOW_ALL, SHOW_ACTIVE } from '../../../stateManager/todo/todo-constant';
+import { SHOW_ALL, SHOW_ACTIVE } from '../../../stateManager/todo/todo-type';
 
 describe('Footer', () => {
   let component;
