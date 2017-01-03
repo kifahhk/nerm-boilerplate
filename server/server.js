@@ -3,34 +3,30 @@ import compression from 'compression';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import path from 'path';
-import webpack from 'webpack';
-import webpackConfig from '../webpack.config.dev';
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
-
-// Initialize the Express App
-const app = new Express();
-
-// Run Webpack dev server in development mode
-import { isDev, isProd } from '../config/server';
-if (isDev) {
-  const compiler = webpack(webpackConfig);
-  app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: webpackConfig.output.publicPath }));
-  app.use(webpackHotMiddleware(compiler));
-}
-
-// React And Redux Setup
-import { configureStore } from '../client/stateManager/store';
 import { Provider } from 'react-redux';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import Helmet from 'react-helmet';
-
-// Import required modules
+import webpack from 'webpack';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+import webpackConfig from '../webpack.config.dev';
+import { configureStore } from '../client/stateManager/store';
 import routes from '../client/routes';
 import dbConfig from '../config/db';
 import todos from './routes/todo.route';
+import { isDev, isProd } from '../config/server';
+
+// Initialize the Express App
+const app = new Express();
+
+// Run Webpack dev server in development mode
+if (isDev) {
+  const compiler = webpack(webpackConfig);
+  app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: webpackConfig.output.publicPath }));
+  app.use(webpackHotMiddleware(compiler));
+}
 
 // Set native promises as mongoose promise
 mongoose.Promise = global.Promise;
@@ -88,7 +84,7 @@ const renderFullPage = (html, initialState) => {
   `;
 };
 
-const renderError = err => {
+const renderError = (err) => {
   const softTab = '&#32;&#32;&#32;&#32;';
   const errTrace = !isProd ?
     `:<br><br><pre style="color:red">${softTab}${err.stack.replace(/\n/g, `<br>${softTab}`)}</pre>` : '';
