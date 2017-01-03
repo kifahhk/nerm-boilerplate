@@ -125,10 +125,9 @@ app.use((req, res, next) => {
 // serve static assets normally
 app.use(Express.static(`${__dirname}/public`));
 
-// handle every other route with 404.html, which will contain
-// a script tag to your application's JavaScript file(s).
-app.get('*', (request, response) => {
-  response.sendFile(path.resolve(__dirname, 'public', '404.html'));
+// handle every other route with 404 not found
+app.get('*', (req, res) => {
+  res.send('404 not found');
 });
 
 // start app

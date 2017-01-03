@@ -9,7 +9,6 @@ import { configureStore } from './stateManager/store';
 const store = configureStore(window.__INITIAL_STATE__);
 const mountApp = document.getElementById('root');
 
-
 render(
   <AppContainer>
     <Root store={store} />
@@ -20,8 +19,6 @@ render(
 // For hot reloading of react components
 if (module.hot) {
   module.hot.accept('./root', () => {
-    // If you use Webpack 2 in ES modules mode, you can
-    // use <App /> here rather than require() a <NextApp />.
     const NextRoot = require('./root').default; // eslint-disable-line global-require
     render(
       <AppContainer>
