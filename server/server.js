@@ -12,7 +12,7 @@ import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../webpack.config.dev';
-import { configureStore } from '../client/stateManager/store';
+import { configureStore } from '../client/stores/store';
 import routes from '../client/routes';
 import dbConfig from '../config/db';
 import todos from './routes/todo.route';

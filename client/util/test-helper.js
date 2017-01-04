@@ -4,7 +4,7 @@ import chai, { expect, assert } from 'chai';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import reducers from '../stateManager/reducers';
+import reducers from '../stores/reducers';
 import { mount, shallow } from 'enzyme';
 import sinonChai from 'sinon-chai';
 import thunk from 'redux-thunk';

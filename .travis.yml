@@ -6,7 +6,9 @@ before_install:
 services:
   - mongodb
 before_script:
-  - sleep 15
+  - sleep 5
+after_script:
+  - 'npm run lint'
 branches:
   only:
     - master

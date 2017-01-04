@@ -6,8 +6,8 @@ const App = ({ children }) => {
   return (
     <div>
       <Helmet
-        title="Mongo-Node-Express-React Starter"
-        titleTemplate="%s - Mongo-Node-Express-React Starter"
+        title="Node-Express-React-MongoDB Boilerplate"
+        titleTemplate="%s - Node-Express-React-MongoDB Boilerplate"
         meta={[
           { charset: 'utf-8' },
           {

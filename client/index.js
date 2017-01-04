@@ -3,7 +3,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import Root from './root';
-import { configureStore } from './stateManager/store';
+import { configureStore } from './stores/store';
 
 // Initialize store
 const store = configureStore(window.__INITIAL_STATE__);
