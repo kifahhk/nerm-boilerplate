@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../../../stateManager/todo/todo-type';
+import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../../../stores/todo/todo-type';
 
 const FILTER_TITLES = {
   [SHOW_ALL]: 'All',

@@ -4,7 +4,7 @@ import { shallow, expect } from '../../../util/test-helper';
 import MainSection from '../components/main-section';
 import Footer from '../components/footer';
 import TodoItem from '../components/todo-item';
-import { SHOW_ALL, SHOW_COMPLETED } from '../../../stateManager/todo/todo-type';
+import { SHOW_ALL, SHOW_COMPLETED } from '../../../stores/todo/todo-type';
 
 describe('MainSection', () => {
   let component;

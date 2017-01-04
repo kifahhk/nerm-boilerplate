@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Header from './components/header';
 import MainSection from './components/main-section';
-import * as TodoActions from '../../stateManager/todo/todo-action';
+import * as TodoActions from '../../stores/todo/todo-action';
 import 'todomvc-app-css/index.css';
 import './todo.scss';
 
