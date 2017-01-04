@@ -128,3 +128,5 @@ The pull request need an approve from other collaborator in order to be merged
 - fix react-route warning on hot reload
 - enhance run speed
 
+## License
+MIT
