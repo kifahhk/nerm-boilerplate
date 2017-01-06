@@ -26,6 +26,9 @@
       'compile-handlebars': {
         component: {
           handlebars: 'node_modules/handlebars'
+        },
+        module: {
+          handlebars: 'node_modules/handlebars'
         }
       },
       prompt: {
@@ -61,7 +64,10 @@
                 name: 'withTest',
                 type: 'confirm',
                 message: 'Would you like me to create tests?',
-                default: 'y'
+                default: 'y',
+                when: function (answers) {
+                  return answers['type'] !== 'module';
+                },
               }, {
                 name: 'name',
                 type: 'input',
@@ -70,9 +76,7 @@
                   const {type, moduleName, componentType} = answers;
                   const isModuleComponent = componentType && moduleName;
                   const basePath = createChoices.indexOf(type) >= 3 ? 'server' : 'client';
-                  const baseComponent = ''; // Todo in case of module list all modules
-                  const dirPath = isModuleComponent ? `modules/${baseComponent}/components` : `${type}s`;
-                  console.log(dirPath);
+                  const dirPath = isModuleComponent ? `modules/${moduleName}/components` : `${type}s`;
                   return !fs.existsSync(`${basePath}/${dirPath}/${value}`) || `${value} exists already, please double check`;
                 }
               }
@@ -104,12 +108,19 @@
     }
 
     function create(results, done) {
-      const {type, withTest, name, componentType} = results;
-      if(type === createChoices[0]) { // case component
-
-        createComponent(name, componentType, withTest);
+      const {type, withTest, name, componentType, moduleName} = results;
+      switch (type) {
+        case 'component':
+          moduleName // module component
+            ? createModuleComponent(name, componentType, withTest, moduleName)
+            : createComponent(name, componentType, withTest);
+          break;
+        case 'module':
+          createModule(name);
+          break;
+        default:
+          grunt.log.write('coming soon...');
       }
-      console.log(results);
       done();
     }
 
@@ -127,7 +138,7 @@
       const cNameCamelCase = getCamelCase(cName);
       const cNameClassName = getClassName(cNameCamelCase);
       const templatePath = 'dev/templates/components';
-      const templateFile = 'stateless-function.handlebars';
+      const templateFile = `${cType}.handlebars`;
       const templateStyle = 'style.handlebars';
       const templateTest = 'test.handlebars';
       const destPath = 'client/components';
@@ -136,7 +147,7 @@
         dest: `${destPath}/${cName}/${cName}.js`
       }, {
         src: `${templatePath}/${templateStyle}`,
-        dest: `${destPath}/$${cName}/${cName}.scss`
+        dest: `${destPath}/${cName}/${cName}.scss`
       }];
       const testFiles = withTest ? [{
           src: `${templatePath}/${templateTest}`,
@@ -155,20 +166,16 @@
       grunt.task.run('compile-handlebars:component');
     }
 
-    function createModuleComponent(cName, cType, withTest) {
+    function createModuleComponent(cName, cType, withTest, moduleName) {
       const cNameCamelCase = getCamelCase(cName);
       const cNameClassName = getClassName(cNameCamelCase);
       const templatePath = 'dev/templates/modules/components';
-      const templateFile = 'stateless-function.handlebars';
-      const templateStyle = 'style.handlebars';
+      const templateFile = `${cType}.handlebars`;
       const templateTest = 'test.handlebars';
-      const destPath = 'client/modules/components';
+      const destPath = `client/modules/${moduleName}`;
       const componentFiles = [{
         src: `${templatePath}/${templateFile}`,
-        dest: `${destPath}/${cName}/${cName}.js`
-      }, {
-        src: `${templatePath}/${templateStyle}`,
-        dest: `${destPath}/$${cName}/${cName}.scss`
+        dest: `${destPath}/components/${cName}.js`
       }];
       const testFiles = withTest ? [{
           src: `${templatePath}/${templateTest}`,
@@ -185,6 +192,41 @@
       });
 
       grunt.task.run('compile-handlebars:component');
+    }
+
+    function createModule(cName) {
+      const cNameCamelCase = getCamelCase(cName);
+      const cNameClassName = getClassName(cNameCamelCase);
+      const templatePath = 'dev/templates/modules';
+      const templateFile = `module.handlebars`;
+      const templateStyle = 'style.handlebars';
+      const templateKeep = 'keep.handlebars';
+      const destPath = 'client/modules';
+      const moduleFiles = [{
+        src: `${templatePath}/${templateFile}`,
+        dest: `${destPath}/${cName}/${cName}.js`
+      }, {
+        src: `${templatePath}/${templateStyle}`,
+        dest: `${destPath}/${cName}/${cName}.scss`
+      }, {
+        src: `${templatePath}/${templateKeep}`,
+        dest: `${destPath}/${cName}/tests/.gitkeep`
+      }, {
+        src: `${templatePath}/${templateKeep}`,
+        dest: `${destPath}/${cName}/components/.gitkeep`
+      }];
+
+
+      grunt.config('compile-handlebars.module', {
+        files: moduleFiles,
+        templateData: {
+          cName,
+          cNameClassName
+        }
+      });
+
+      grunt.task.run('compile-handlebars:module');
+
     }
 
   };
