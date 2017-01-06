@@ -29,6 +29,9 @@
         },
         module: {
           handlebars: 'node_modules/handlebars'
+        },
+        store: {
+          handlebars: 'node_modules/handlebars'
         }
       },
       prompt: {
@@ -66,7 +69,7 @@
                 message: 'Would you like me to create tests?',
                 default: 'y',
                 when: function (answers) {
-                  return answers['type'] !== 'module';
+                  return answers['type'] !== 'module' && answers['type'] !== 'store';
                 },
               }, {
                 name: 'name',
@@ -117,6 +120,9 @@
           break;
         case 'module':
           createModule(name);
+          break;
+        case 'store':
+          createStore(name);
           break;
         default:
           grunt.log.write('coming soon...');
@@ -226,6 +232,42 @@
       });
 
       grunt.task.run('compile-handlebars:module');
+
+    }
+
+    function createStore(storeName) {
+      const storeNameCamelCase = getCamelCase(storeName);
+      const storeNameUpperCase = storeNameCamelCase.toUpperCase();
+      const templatePath = 'dev/templates/stores';
+      const reducerTemplate = `reducer.handlebars`;
+      const typeTemplate = 'type.handlebars';
+      const actionTemplate = 'action.handlebars';
+      const keepTemplate = 'keep.handlebars';
+      const destPath = 'client/stores';
+      const moduleFiles = [{
+        src: `${templatePath}/${reducerTemplate}`,
+        dest: `${destPath}/${storeName}/${storeName}-reducer.js`
+      }, {
+        src: `${templatePath}/${typeTemplate}`,
+        dest: `${destPath}/${storeName}/${storeName}-type.js`
+      }, {
+        src: `${templatePath}/${actionTemplate}`,
+        dest: `${destPath}/${storeName}/${storeName}-action.js`
+      }, {
+        src: `${templatePath}/${keepTemplate}`,
+        dest: `${destPath}/${storeName}/tests/.gitkeep`
+      }];
+
+
+      grunt.config('compile-handlebars.store', {
+        files: moduleFiles,
+        templateData: {
+          storeName,
+          storeNameUpperCase
+        }
+      });
+
+      grunt.task.run('compile-handlebars:store');
 
     }
 
