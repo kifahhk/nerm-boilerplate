@@ -5,3 +5,4 @@ webpack.config.babel.js
 Gruntfile.js
 index.js
 config/postcss.js
+dev/templates

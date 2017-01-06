@@ -1,0 +1,14 @@
+import { expect } from 'chai';
+import request from 'supertest';
+import app from '../../server';
+
+describe('{{modelNameClassName}}', () => {
+  it('should pass the test /api/{{modelName}}/test', (done) => {
+    request(app)
+      .get('/api/{{modelName}}/test')
+      .end((err, res) => {
+        expect(res.body.pass).equal(true);
+        done();
+      });
+  });
+});
