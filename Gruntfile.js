@@ -8,9 +8,7 @@
     'component',
     'module',
     'store',
-    'model',
-    'controller',
-    'route'
+    'model'
   ];
   const componentTypes = [
     'stateless-function',
@@ -31,6 +29,9 @@
           handlebars: 'node_modules/handlebars'
         },
         store: {
+          handlebars: 'node_modules/handlebars'
+        },
+        model: {
           handlebars: 'node_modules/handlebars'
         }
       },
@@ -69,7 +70,7 @@
                 message: 'Would you like me to create tests?',
                 default: 'y',
                 when: function (answers) {
-                  return answers['type'] !== 'module' && answers['type'] !== 'store';
+                  return answers['type'] === 'component';
                 },
               }, {
                 name: 'name',
@@ -78,9 +79,9 @@
                 validate: function (value, answers) {
                   const {type, moduleName, componentType} = answers;
                   const isModuleComponent = componentType && moduleName;
-                  const basePath = createChoices.indexOf(type) >= 3 ? 'server' : 'client';
+                  const basePath = type === 'model' ? 'server' : 'client';
                   const dirPath = isModuleComponent ? `modules/${moduleName}/components` : `${type}s`;
-                  return !fs.existsSync(`${basePath}/${dirPath}/${value}`) || `${value} exists already, please double check`;
+                  return !(fs.existsSync(`${basePath}/${dirPath}/${value}`) || fs.existsSync(`${basePath}/${dirPath}/${value}.js`)) || `${value} exists already, please double check`;
                 }
               }
             ],
@@ -123,6 +124,10 @@
           break;
         case 'store':
           createStore(name);
+          break;
+        case 'model':
+          grunt.log.write(`don't forget to add the routes to express app on server/server.js ...`);
+          createModel(name);
           break;
         default:
           grunt.log.write('coming soon...');
@@ -268,6 +273,42 @@
       });
 
       grunt.task.run('compile-handlebars:store');
+
+    }
+
+    function createModel(modelName) {
+      const modelNameCamelCase = getCamelCase(modelName);
+      const modelNameClassName = getClassName(modelNameCamelCase);
+      const templatePath = 'dev/templates/models';
+      const controllerTemplate = `controller.handlebars`;
+      const modelTemplate = 'model.handlebars';
+      const routeTemplate = 'route.handlebars';
+      const testTemplate = 'test.handlebars';
+      const destPath = 'server/';
+      const modelFiles = [{
+        src: `${templatePath}/${controllerTemplate}`,
+        dest: `${destPath}/controllers/${modelName}.controller.js`
+      }, {
+        src: `${templatePath}/${modelTemplate}`,
+        dest: `${destPath}/models/${modelName}.js`
+      }, {
+        src: `${templatePath}/${routeTemplate}`,
+        dest: `${destPath}/routes/${modelName}.route.js`
+      }, {
+        src: `${templatePath}/${testTemplate}`,
+        dest: `${destPath}/models/tests/${modelName}.spec.js`
+      }];
+
+      grunt.config('compile-handlebars.model', {
+        files: modelFiles,
+        templateData: {
+          modelName,
+          modelNameCamelCase,
+          modelNameClassName
+        }
+      });
+
+      grunt.task.run('compile-handlebars:model');
 
     }
 

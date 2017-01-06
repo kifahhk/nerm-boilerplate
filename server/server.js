@@ -122,9 +122,6 @@ app.use((req, res, next) => {
   });
 });
 
-// serve static assets normally
-app.use(Express.static(`${__dirname}/public`));
-
 // handle every other route with 404 not found
 app.get('*', (req, res) => {
   res.send('404 not found');
