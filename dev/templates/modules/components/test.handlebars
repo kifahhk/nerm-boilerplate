@@ -1,0 +1,18 @@
+import React from 'react';
+import { shallow, expect } from '../../../util/test-helper';
+import {{cNameClassName}} from '../components/{{cName}}';
+
+describe('{{cNameClassName}}', () => {
+  let component;
+  const props = {
+    className: '{{cName}}',
+  };
+
+  beforeEach(() => {
+    component = shallow(<{{cNameClassName}} {...props} />);
+  });
+
+  it('should render correctly', () =>
+    expect(component.hasClass('{{cName}}')).be.true
+  );
+});
