@@ -3,9 +3,9 @@
 ## Boilerplate for building apps with Node / Express / React Redux and MongoDB
 
 Heavily inspired by [MERN](https://mern.io) and mainly created using [MERN-cli](https://github.com/Hashnode/mern-cli)
-#### modified for own purposes 
+#### modified for own purposes
 
-Todo example on the client side modified from [redux example](https://github.com/reactjs/redux/tree/master/examples/todomvc) 
+Todo example on the client side modified from [redux example](https://github.com/reactjs/redux/tree/master/examples/todomvc)
 
 #### Demo
 https://nerm-boilerplate.herokuapp.com/
@@ -37,12 +37,15 @@ http://localhost:8000/
 
 8. `npm run lint` - runs linter to check for lint errors
 
+9. `grunt create` - scuffolding tool to create components, modules and stores
+
+
 ## Configuration and File Structure
 
 #### Webpack (environments)
-`webpack.config.dev.js` (for development)     
-`webpack.config.prod.js` (for production)  
-`webpack.config.server.js` (for bundling server in production)  
+`webpack.config.dev.js` (for development)
+`webpack.config.prod.js` (for production)
+`webpack.config.server.js` (for bundling server in production)
 `webpack.config.babel.js` (for [babel-plugin-webpack-loaders](https://github.com/istarkov/babel-plugin-webpack-loaders) for server rendering of assets included through webpack).
 
 #### Database configuration
@@ -51,13 +54,13 @@ http://localhost:8000/
 #### Server configuration
 `config/server.js`
 
-### Server 
+### Server
 
 Express web framework
 
 #### Server Side Rendering
 
-React Router handles all the routes are defined in `client/routes.js`. 
+React Router handles all the routes are defined in `client/routes.js`.
 
 ### Client
 
@@ -70,11 +73,11 @@ This folder contains all the common components which are used throughout the pro
 Index.js simply does client side rendering using the data provided from `window.__INITIAL_STATE__`.
 
 #### modules
-Modules are the way of organising different domain-specific modules in the project. 
+Modules are the way of organising different domain-specific modules in the project.
 A typical module contains the following:
 
 ```
-| - todo  
+| - todo
   | - components // Sub components of this module
       | - footer.js
       | - header.js
@@ -87,7 +90,7 @@ A typical module contains the following:
         | - main-section.spec.js
         | - todo-input.spec.js
         | - todo-item.spec.js
-  | - todo.js // container 
+  | - todo.js // container
   | - todo.scss // main style
 ```
 
@@ -95,24 +98,24 @@ A typical module contains the following:
 Stores contains all redux stores/reducers, file structure:
 
 ```
-| - todo    
+| - todo
   | - tests // all the tests for this store goes here
         | - todo-action.spec.js
-        | - todo-reducer.spec.js        
+        | - todo-reducer.spec.js
   | - todo-action.js // store actions
   | - todo-reducer.js // store reducer
   | - todo-type.js // store constants
 ```
 
 ## Testing
-Tests will be run with [mocha](https://github.com/mochajs/mocha) 
+Tests will be run with [mocha](https://github.com/mochajs/mocha)
 using [chai](https://github.com/chaijs/chai) as an assertions library
  - [enzyme](https://github.com/airbnb/enzyme) as testing library
  - [sinon](https://github.com/sinonjs/sinon) as test spies
  - [moxios](https://github.com/mzabriskie/moxios) to mock [axios](https://github.com/mzabriskie/axios) requests for testing.
  Alternative: [nock](https://github.com/node-nock/nock) for [fetch](https://github.github.io/fetch/)
  - [supertest](https://github.com/visionmedia/supertest) HTTP assertions for server testing
-  
+
 ## Linting
 Lints rules are defined in `.eslintrc` file.
 
