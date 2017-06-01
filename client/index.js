@@ -9,22 +9,18 @@ import { configureStore } from './stores/store';
 const store = configureStore(window.__INITIAL_STATE__);
 const mountApp = document.getElementById('root');
 
-render(
-  <AppContainer>
-    <Root store={store} />
-  </AppContainer>,
-  mountApp
-);
+const renderApp = () => {
+  render(
+    <AppContainer>
+      <Root store={store} />
+    </AppContainer>,
+    mountApp
+  );
+};
+
+renderApp();
 
 // For hot reloading of react components
 if (module.hot) {
-  module.hot.accept('./root', () => {
-    const NextRoot = require('./root').default; // eslint-disable-line global-require
-    render(
-      <AppContainer>
-        <NextRoot store={store} />
-      </AppContainer>,
-      mountApp
-    );
-  });
+  module.hot.accept('./root', renderApp);
 }

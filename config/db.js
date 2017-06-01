@@ -1,11 +1,7 @@
-import { isDev, isTest, isProd } from './server';
+import { isDev, isTest } from './server';
 
-const devDB = 'mongodb://localhost:27017/nerm-db-dev';
-const testDB = 'mongodb://localhost:27017/nerm-db-test';
-const prodDB = 'mongodb://localhost:27017/nerm-db-prod';
-const config = {
-  mongoURL: process.env.MONGO_URL || isDev ? devDB : isTest ? testDB : prodDB,
-  port: process.env.PORT || isDev ? 8000 : isTest ? 8080 : 8000,
-};
+const devDB = 'mongodb://localhost:27017/pb-db-dev';
+const testDB = 'mongodb://localhost:27017/pb-db-test';
+const prodDB = 'mongodb://localhost:27017/pb-db-prod';
 
-export default config;
+export const mongoURI = process.env.MONGODB_URI || (isDev ? devDB : isTest ? testDB : prodDB);

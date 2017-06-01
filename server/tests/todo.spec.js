@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import request from 'supertest';
-import app from '../../server';
-import Todo from '../todo';
-import { todos } from '../../mock/dummy-data';
+import app from '../server';
+import Todo from '../models/todo';
+import { todos } from '../mock/dummy-data';
 
 describe('Todo', () => {
   let addedTodo = null;

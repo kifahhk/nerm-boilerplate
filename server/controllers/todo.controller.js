@@ -8,14 +8,14 @@ import sanitizeHtml from 'sanitize-html';
  * @param res
  * @returns void
  */
-export function getTodos(req, res) {
+export const getTodos = (req, res) => {
   Todo.find().sort('-created-date').exec((err, todos) => {
     if (err) {
       res.status(500).send(err);
     }
     res.json({ todos });
   });
-}
+};
 
 /**
  * Add a todo
@@ -23,7 +23,7 @@ export function getTodos(req, res) {
  * @param res
  * @returns void
  */
-export function addTodo(req, res) {
+export const addTodo = (req, res) => {
   if (!req.body.todo || !req.body.todo.text) {
     res.status(403).end();
   }
@@ -40,7 +40,7 @@ export function addTodo(req, res) {
     }
     res.json({ todo: saved });
   });
-}
+};
 
 /**
  * Get a single todo
@@ -48,14 +48,14 @@ export function addTodo(req, res) {
  * @param res
  * @returns void
  */
-export function getTodo(req, res) {
+export const getTodo = (req, res) => {
   Todo.findOne({ _id: req.params.id }).exec((err, todo) => {
     if (err) {
       res.status(500).send(err);
     }
     res.json({ todo });
   });
-}
+};
 
 /**
  * update a todo
@@ -63,7 +63,7 @@ export function getTodo(req, res) {
  * @param res
  * @returns void
  */
-export function updateTodo(req, res) {
+export const updateTodo = (req, res) => {
   Todo.findOneAndUpdate({ _id: req.params.id }, req.body.todo, { upsert: false }).exec((err, todo) => {
     if (err) {
       res.status(500).send(err);
@@ -73,7 +73,7 @@ export function updateTodo(req, res) {
     }
     res.json({ todo: { ...req.body.todo, ...todo } }); // return new values (updated Todo)
   });
-}
+};
 
 /**
  * Delete a todo
@@ -81,7 +81,7 @@ export function updateTodo(req, res) {
  * @param res
  * @returns void
  */
-export function deleteTodo(req, res) {
+export const deleteTodo = (req, res) => {
   Todo.findOne({ _id: req.params.id }).exec((err, todo) => {
     if (err) {
       res.status(500).send(err);
@@ -93,4 +93,4 @@ export function deleteTodo(req, res) {
       res.status(200).end();
     });
   });
-}
+};

@@ -8,13 +8,21 @@ import reducers from '../stores/reducers';
 import { mount, shallow } from 'enzyme';
 import sinonChai from 'sinon-chai';
 import thunk from 'redux-thunk';
+import { LocalStorage } from 'node-localstorage';
+import * as router from 'react-router';
 
 chai.use(sinonChai);
 
 const exposedProperties = ['window', 'navigator', 'document'];
+const globalKeys = ['DocumentFragment', 'Event', 'KeyboardEvent', 'MouseEvent']; // dom4
 
 global.document = jsdom.jsdom('<!doctype html><html><body></body></html>');
+globalKeys.forEach(key => {
+  global[key] = document.defaultView[key];
+});
 global.window = global.document.defaultView;
+global.localStorage = new LocalStorage('./localStorageTemp');
+global.window.localStorage = global.localStorage;
 Object.keys(document.defaultView).forEach((property) => {
   if (typeof global[property] === 'undefined') {
     exposedProperties.push(property);
@@ -48,6 +56,11 @@ const mockStore = (currentState) => {
       return action;
     };
 
+    const subscribe = () => {
+      return () => {
+      };
+    };
+
     const getActions = () => {
       return actions;
     };
@@ -55,6 +68,7 @@ const mockStore = (currentState) => {
     return {
       getState,
       dispatch,
+      subscribe,
       getActions,
     };
   };
@@ -64,6 +78,11 @@ const mockStore = (currentState) => {
   )(mockStoreWithoutMiddleware);
 
   return mockStoreWithMiddleware();
+};
+// mock router browser history
+router.browserHistory = {
+  push: () => {
+  },
 };
 
 export { renderComponent, expect, shallow, mount, assert, mockStore };

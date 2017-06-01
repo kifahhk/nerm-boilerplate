@@ -1,8 +1,10 @@
 import mongoose from 'mongoose';
-import dbConfig from '../../config/db';
+import { mongoURI } from '../../config/db';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const connect = ((done) => {
-  mongoose.createConnection(dbConfig.mongoURL);
+  mongoose.createConnection(mongoURI);
   mongoose.connection
     .once('open', () => done())
     .on('error', err => {
