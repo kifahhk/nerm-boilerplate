@@ -1,8 +1,9 @@
 const webpack = require('webpack');
+const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
-const cssnano = require('cssnano');
+const WebpackBundleSizeAnalyzerPlugin = require('webpack-bundle-size-analyzer').WebpackBundleSizeAnalyzerPlugin;
 const postcssPlugins = require('./config/postcss');
 
 
@@ -20,13 +21,13 @@ module.exports = {
   },
 
   output: {
-    path: __dirname + '/dist/',
+    path: path.resolve(__dirname, 'dist'),
     filename: '[name].[chunkhash].js',
     publicPath: '/',
   },
 
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['.js', '.jsx'],
     modules: [
       'client',
       'node_modules',
@@ -34,26 +35,40 @@ module.exports = {
   },
 
   module: {
-    loaders: [
+    rules: [
       {
-        exclude: /node_modules/,
-        loader: ExtractTextPlugin.extract('style', 'css?sourceMap!postcss!sass'),
         test: /\.s?css$/,
-      },      {
-        include: /node_modules/,
-        loader: ExtractTextPlugin.extract('style', 'css?sourceMap'),
-        test: /\.css$/,
-      },{
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            'css-loader',
+            'postcss-loader?plugins=' + postcssPlugins,
+            'resolve-url-loader',
+            'sass-loader?sourceMap'
+          ],
+        })
+      }, {
         test: /\.js?$/,
-        exclude: /node_modules/,
-        loader: 'babel',
-      }, {
-        test: /\.(jpe?g|gif|png|svg)$/i,
-        loader: 'url-loader?limit=10000',
-      }, {
-        test: /\.json$/,
-        loader: 'json-loader',
+        exclude: [
+          path.resolve(__dirname, "node_modules")
+        ],
+        use: 'babel-loader?plugins=jsx-control-statements'
       },
+      {
+        test: /\.(png|jpg|jpeg|gif|svg)$/,
+        use: 'url-loader?limit=10000'
+      },
+      {
+        test: /\.json$/,
+        exclude: [
+          path.resolve(__dirname, "node_modules")
+        ],
+        use: 'json-loader'
+      },
+      {
+        test: /\.(eot|ttf|woff|woff2)$/,
+        use: 'file-loader?name=[name].[ext]'
+      }
     ],
   },
 
@@ -68,7 +83,12 @@ module.exports = {
       minChunks: Infinity,
       filename: 'vendor.js',
     }),
-    new ExtractTextPlugin('app.[chunkhash].css', { allChunks: true }),
+    new ExtractTextPlugin({
+      filename: (getPath) => {
+        return getPath('app.[chunkhash].css').replace('css/js', 'css');
+      },
+      allChunks: true
+    }),
     new ManifestPlugin({
       basePath: '/',
     }),
@@ -77,11 +97,13 @@ module.exports = {
       manifestVariable: "webpackManifest",
     }),
     new webpack.optimize.UglifyJsPlugin({
+      output: {
+        comments: false
+      },
       compressor: {
         warnings: false,
       }
     }),
+    new WebpackBundleSizeAnalyzerPlugin('./build-report.txt')
   ],
-
-  postcss: postcssPlugins
 };

@@ -6,3 +6,9 @@ dump.rdb
 .vscode/
 public/*
 dist
+/upload
+/testfiles
+/server/routes/tests/uploadTest.png
+fileStorage/
+
+.env
