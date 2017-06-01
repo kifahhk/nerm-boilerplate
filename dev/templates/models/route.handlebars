@@ -2,7 +2,7 @@ import { Router } from 'express';
 import * as {{modelNameClassName}}Controller from '../controllers/{{modelName}}.controller';
 const router = new Router();
 
-// test {{modelNameClassName}}
-router.route('/{{modelName}}/test').get({{modelNameClassName}}Controller.test);
+// create new {{modelNameClassName}}
+router.post('/{{modelName}}', {{modelNameClassName}}Controller.create{{modelNameClassName}});
 
 export default router;

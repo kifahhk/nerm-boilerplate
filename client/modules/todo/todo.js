@@ -30,7 +30,7 @@ Todo.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  todos: state.todos,
+  todos: state.todo,
 });
 
 const mapDispatchToProps = dispatch => ({

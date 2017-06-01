@@ -14,9 +14,9 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../webpack.config.dev';
 import { configureStore } from '../client/stores/store';
 import routes from '../client/routes';
-import dbConfig from '../config/db';
-import todos from './routes/todo.route';
-import { isDev, isProd } from '../config/server';
+import { mongoURI } from '../config/db';
+import apiRoutes from './routes';
+import { isDev, isProd, port } from '../config/server';
 
 // Initialize the Express App
 const app = new Express();
@@ -32,7 +32,7 @@ if (isDev) {
 mongoose.Promise = global.Promise;
 
 // MongoDB Connection
-mongoose.connect(dbConfig.mongoURL, (error) => {
+mongoose.connect(mongoURI, (error) => {
   if (error) {
     console.error('Please make sure Mongodb is installed and running!'); // eslint-disable-line no-console
     throw error;
@@ -44,10 +44,12 @@ app.use(compression());
 app.use(bodyParser.json({ limit: '20mb' }));
 app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
 app.use(Express.static(path.resolve(__dirname, '../dist')));
-app.use('/api', todos);
+apiRoutes.forEach((apiRoute) => {
+  app.use('/api', apiRoute);
+});
 
 // Render Initial HTML
-const renderFullPage = (html, initialState) => {
+const renderFullPage = (html, initialState, locale) => {
   const head = Helmet.rewind();
 
   // Import Manifests
@@ -72,6 +74,7 @@ const renderFullPage = (html, initialState) => {
         <div id="root">${html}</div>
         <script>
           window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
+          window.__LOCALE = '${locale}';
           ${isProd ?
     `//<![CDATA[
           window.webpackManifest = ${JSON.stringify(chunkManifest)};
@@ -118,19 +121,19 @@ app.use((req, res, next) => {
     res
       .set('Content-Type', 'text/html')
       .status(200)
-      .end(renderFullPage(initialView, finalState));
+      .end(renderFullPage(initialView, finalState, req.locale));
   });
 });
 
 // handle every other route with 404 not found
 app.get('*', (req, res) => {
-  res.send('404 not found');
+  res.redirect('404');
 });
 
 // start app
-app.listen(dbConfig.port, (error) => {
+app.listen(port, (error) => {
   if (!error) {
-    console.log(`App is running on port: ${dbConfig.port}!`); // eslint-disable-line
+    console.log(`App is running on port: ${port}!`); // eslint-disable-line
   }
 });
 

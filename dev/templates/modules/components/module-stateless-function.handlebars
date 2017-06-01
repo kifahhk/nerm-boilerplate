@@ -1,19 +1,25 @@
 import React, { PropTypes } from 'react';
 
+const propTypes = {
+  className: PropTypes.string,
+};
+
+const defaultProps = {
+  className: '',
+};
+
 const {{cNameClassName}} = (props) => {
   const { className } = props;
 
   return (
-    <div className={`{{cName}}-container ${className}`} />
+    <div className={`{{cName}}-container ${className}`} >
+      {{cNameClassName}}
+    </div>
   );
 };
 
-{{cNameClassName}}.propTypes = {
-  className: PropTypes.string,
-};
+{{cNameClassName}}.propTypes = propTypes;
 
-{{cNameClassName}}.defaultProps = {
-  className: '',
-};
+{{cNameClassName}}.defaultProps = defaultProps;
 
 export default {{cNameClassName}};

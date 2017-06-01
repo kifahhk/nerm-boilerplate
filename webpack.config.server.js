@@ -7,7 +7,7 @@ module.exports = {
   entry: path.resolve(__dirname, 'server/server.js'),
 
   output: {
-    path: __dirname + '/dist/',
+    path: path.resolve(__dirname, 'dist'),
     filename: 'server.bundle.js',
   },
 
@@ -19,7 +19,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['.js'],
     modules: [
       'client',
       'node_modules',
@@ -31,25 +31,31 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
-        query: {
-          presets: [
-            'react',
-            'es2015',
-            'stage-0',
-          ],
-          plugins: [
-            [
-              'babel-plugin-webpack-loaders', {
-                'config': './webpack.config.babel.js',
-                "verbose": false
-              }
-            ]
-          ]
-        },
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                'react',
+                'es2015',
+                'stage-0',
+              ],
+              plugins: [
+                [
+                  'babel-plugin-transform-require-ignore',
+                  {
+                    extensions: ['.scss', '.less', '.sass', '.css', '.svg', '.png', '.jpg', '.jpeg', '.gif']
+                  }
+                ],
+                "jsx-control-statements",
+                "transform-react-constant-elements"
+              ]
+            }
+          }
+        ]
       }, {
         test: /\.json$/,
-        loader: 'json-loader',
+        use: 'json-loader',
       },
     ],
   },

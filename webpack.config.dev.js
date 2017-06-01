@@ -1,8 +1,15 @@
 const webpack = require('webpack');
+const path = require('path');
 const postcssPlugins = require('./config/postcss');
 
+let cssModulesIdentName = '[name]__[local]__[hash:base64:5]';
+if (process.env.NODE_ENV === 'production') {
+  cssModulesIdentName = '[hash:base64]';
+}
+
+
 module.exports = {
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'cheap-eval-source-map',
 
   entry: {
     app: [
@@ -25,34 +32,56 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['.js'],
     modules: [
-      'client',
       'node_modules',
+      'client',
     ],
   },
 
   module: {
-    loaders: [
+    rules: [
       {
-        exclude: /node_modules/,
-        loader: 'style!css?sourceMap!postcss!sass',
-        test: /\.s?css$/,
-      },{
-        include: /node_modules/,
-        loader: 'style!css',
-        test: /\.css$/,
-      },{
-        test: /\.js?$/,
-        exclude: [/node_modules/, /.+\.config.js/],
-        loader: 'babel',
-      }, {
-        test: /\.(jpe?g|gif|png|svg)$/i,
-        loader: 'url-loader?limit=10000',
-      }, {
-        test: /\.json$/,
-        loader: 'json-loader',
+        test: /\.js$/,
+        exclude: [
+          path.resolve(__dirname, "node_modules")
+        ],
+        use: 'babel-loader',
       },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader?importLoaders=1&localIdentName' + cssModulesIdentName + '&sourceMap',
+          'postcss-loader?plugins=' + postcssPlugins,
+          'resolve-url-loader'
+        ],
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          'css-loader?importLoaders=1&localIdentName' + cssModulesIdentName + '&sourceMap',
+          'postcss-loader?plugins=' + postcssPlugins,
+          'resolve-url-loader',
+          'sass-loader?sourceMap'
+        ],
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif|svg)$/,
+        use: 'url-loader?limit=10000'
+      },
+      {
+        test: /\.json$/,
+        exclude: [
+          path.resolve(__dirname, "node_modules")
+        ],
+        use: 'json-loader'
+      },
+      {
+        test: /\.(eot|ttf|woff|woff2)$/,
+        use: 'file-loader?name=[name].[ext]'
+      }
     ],
   },
 
@@ -66,11 +95,9 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         CLIENT: JSON.stringify(true),
-        'NODE_ENV': JSON.stringify('development'),
+        BROWSER: JSON.stringify(true),
+        NODE_ENV: JSON.stringify('development'),
       }
-    }),
+    })
   ],
-
-  postcss: postcssPlugins
-
 };

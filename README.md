@@ -2,26 +2,25 @@
 
 ## Boilerplate for building apps with Node / Express / React Redux and MongoDB
 
-Heavily inspired by [MERN](https://mern.io) and mainly created using [MERN-cli](https://github.com/Hashnode/mern-cli)
-#### modified for own purposes
 
-Todo example on the client side modified from [redux example](https://github.com/reactjs/redux/tree/master/examples/todomvc)
+Inspired by [MERN](https://mern.io) and mainly created using [MERN-cli](https://github.com/Hashnode/mern-cli)
+#### modified for own purposes 
 
 #### Demo
 https://nerm-boilerplate.herokuapp.com/
 
-## To Run
+## install
 ```
 git clone https://github.com/kifahhk/nerm-boilerplate
 cd nerm-boilerplate
 npm install
-npm start
-http://localhost:8000/
+npm run dev
 ```
+[http://localhost:8000/](http://localhost:8000/)
 
 ## Available Commands
 
-1. `npm run start` - run the development server with hot reloading enabled
+1. `npm run dev` - run the development server with hot reloading enabled
 
 2. `npm run build` - build code-bundle and starts the production server
 
@@ -37,22 +36,27 @@ http://localhost:8000/
 
 8. `npm run lint` - runs linter to check for lint errors
 
-9. `grunt create` - scuffolding tool to create components, modules and stores
+9. `npm run create` - runs grunt helper tool to creat shared components, modules, stores and models
+
+please note that `npm start` will run the production build
 
 
-## Configuration and File Structure
+## Configuration
 
-#### Webpack (environments)
-`webpack.config.dev.js` (for development)
-`webpack.config.prod.js` (for production)
+#### Webpack 2 (environments)
+`webpack.config.dev.js` (for development client & server)
+`webpack.config.prod.js` (for bundling client in production)
 `webpack.config.server.js` (for bundling server in production)
-`webpack.config.babel.js` (for [babel-plugin-webpack-loaders](https://github.com/istarkov/babel-plugin-webpack-loaders) for server rendering of assets included through webpack).
+
 
 #### Database configuration
 `config/db.js`
 
 #### Server configuration
 `config/server.js`
+
+
+## File Structure
 
 ### Server
 
@@ -133,3 +137,43 @@ The pull request need an approve from other collaborator in order to be merged
 
 ## License
 MIT
+
+## Developing
+
+Follow scaffolding tool:
+````
+npm run create
+````
+
+### General guideline
+- Any change must be done in separate branch
+- Name convension
+  - No plural for files name, directories can be in plural though
+  - No camelCase, instead use dash '-' to separate => camel-case
+  - No capital-letters
+- Follow file structure
+- Create Tests
+- Edit just related files
+- Separate between Server and Client implementation
+
+### Before creating Pull-Request
+- All the tests pass
+- Lint pass
+
+### API Service
+- model
+- controller
+- routes
+- add routes to express server
+
+### Client Checklist
+- lib (shared components)
+- modules
+- stores
+- routes
+
+### Before merge
+- Code reviewed and approved
+
+### After merge
+- Delete Branch

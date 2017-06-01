@@ -1,5 +1,11 @@
 import {{modelNameClassName}} from '../models/{{modelName}}';
 
-export function test(req, res) {
-  res.json({ pass: true });
+export function create{{modelNameClassName}}(req, res) {
+  const new{{modelNameClassName}} = new {{modelNameClassName}}(req.body.{{modelNameCamelCase}});
+  new{{modelNameClassName}}.save((err, saved) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+    res.json({ {{modelNameCamelCase}}: saved });
+  });
 }

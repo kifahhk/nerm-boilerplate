@@ -5,7 +5,7 @@ import {{cNameClassName}} from '../{{cName}}';
 describe('{{cNameClassName}}', () => {
   let component;
   const props = {
-    className: '{{cName}}',
+    className: 'custom-class',
   };
 
   beforeEach(() => {
@@ -13,6 +13,6 @@ describe('{{cNameClassName}}', () => {
   });
 
   it('should render correctly', () =>
-    expect(component.hasClass('{{cName}}')).be.true
+    expect(component.hasClass('custom-class')).be.true
   );
 });
