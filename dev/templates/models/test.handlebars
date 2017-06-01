@@ -1,13 +1,14 @@
 import { expect } from 'chai';
 import request from 'supertest';
-import app from '../../server';
+import app from '../server';
 
 describe('{{modelNameClassName}}', () => {
-  it('should pass the test /api/{{modelName}}/test', (done) => {
+  it('should be able to create a new {{modelNameClassName}} when post to /api/{{modelName}}', (done) => {
     request(app)
-      .get('/api/{{modelName}}/test')
+      .post('/api/{{modelName}}')
+      .send({ {{modelNameCamelCase}}: {} })
       .end((err, res) => {
-        expect(res.body.pass).equal(true);
+        expect(res.body.{{modelNameCamelCase}}._id).to.exist;
         done();
       });
   });

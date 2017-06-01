@@ -1,0 +1,16 @@
+// root reducer
+import { combineReducers } from 'redux';
+{{#each stores}}
+  {{#if this}}
+import {{this}} from './{{this}}/{{this}}-reducer';
+  {{/if}}
+{{/each}}
+
+// Combine all reducers into one root reduce
+export default combineReducers({
+{{#each stores}}
+  {{#if this}}
+  {{this}},
+  {{/if}}
+{{/each}}
+});

@@ -1,0 +1,13 @@
+{{#each routes}}
+  {{#if this}}
+import {{this}}Routes from './{{this}}.route';
+  {{/if}}
+{{/each}}
+
+export default [
+{{#each routes}}
+  {{#if this}}
+  {{this}}Routes,
+  {{/if}}
+{{/each}}
+];
