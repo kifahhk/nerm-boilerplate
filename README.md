@@ -2,6 +2,7 @@
 
 ## Boilerplate for building apps with Node / Express / React Redux and MongoDB
 
+
 Inspired by [MERN](https://mern.io) and mainly created using [MERN-cli](https://github.com/Hashnode/mern-cli)
 #### modified for own purposes 
 
@@ -35,9 +36,7 @@ npm run dev
 
 8. `npm run lint` - runs linter to check for lint errors
 
-9. `npm run styleguide` - runs react stroybook styleguide on port 9001
-
-10. `npm run create` - runs grunt helper tool to creat shared components, modules, stores and models
+9. `npm run create` - runs grunt helper tool to creat shared components, modules, stores and models
 
 please note that `npm start` will run the production build
 
@@ -49,11 +48,13 @@ please note that `npm start` will run the production build
 `webpack.config.prod.js` (for bundling client in production)
 `webpack.config.server.js` (for bundling server in production)
 
+
 #### Database configuration
 `config/db.js`
 
 #### Server configuration
 `config/server.js`
+
 
 ## File Structure
 
